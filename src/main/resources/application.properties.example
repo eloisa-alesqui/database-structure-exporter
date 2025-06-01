@@ -1,0 +1,44 @@
+spring.application.name=DatabaseStructureExporter
+
+# ============================================
+# CONFIGURACIÓN DE BASE DE DATOS
+# ============================================
+
+# DB2 Configuration (Actualmente soportado)
+spring.datasource.url=jdbc:db2://localhost:50000/SAMPLE
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+spring.datasource.driver-class-name=com.ibm.db2.jcc.DB2Driver
+
+# Ejemplos de configuración para otras bases de datos (próximamente):
+# PostgreSQL: spring.datasource.url=jdbc:postgresql://localhost:5432/database
+# MySQL: spring.datasource.url=jdbc:mysql://localhost:3306/database
+# Oracle: spring.datasource.url=jdbc:oracle:thin:@localhost:1521:XE
+# SQL Server: spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=database
+
+# ============================================
+# CONFIGURACIÓN DEL POOL DE CONEXIONES
+# ============================================
+spring.datasource.hikari.maximum-pool-size=5
+spring.datasource.hikari.minimum-idle=2
+spring.datasource.hikari.connection-timeout=30000
+spring.datasource.hikari.idle-timeout=600000
+
+# ============================================
+# CONFIGURACIÓN DE LA APLICACIÓN
+# ============================================
+
+# Esquema de base de datos a exportar
+app.schema=YOUR_SCHEMA_NAME
+
+# Directorio donde se guardarán los archivos exportados
+app.output.directory=database_structure
+
+# Incluir foreign keys en la exportación (true/false)
+app.include.foreign.keys=true
+
+# ============================================
+# CONFIGURACIÓN DE LOGGING
+# ============================================
+logging.level.es.alesqui.dbexporter=INFO
+logging.level.org.springframework.jdbc=DEBUG

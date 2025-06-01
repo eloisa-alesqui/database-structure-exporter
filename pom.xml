@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.14.RELEASE</version>
+        <relativePath></relativePath>
+    </parent>
+    
+    <groupId>es.alesqui</groupId>
+    <artifactId>db-exporter</artifactId>
+    <version>1.0.0</version>
+    <name>Database Structure Exporter</name>
+    <description>Herramienta para exportar estructura de tablas de base de datos a archivos de texto para NotebookLM</description>
+    
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    
+    <dependencies>
+        <!-- Spring Boot JDBC Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        
+        <!-- Lombok para reducir código boilerplate -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+        </dependency>
+        
+        <!-- ============================================= -->
+        <!-- DRIVERS DE BASE DE DATOS                      -->
+        <!-- ============================================= -->
+        
+        <!-- DB2 Driver (Implementación completa) -->
+        <dependency>
+            <groupId>com.ibm.db2</groupId>
+            <artifactId>jcc</artifactId>
+            <version>11.5.8.0</version>
+        </dependency>
+        
+        <!-- ============================================= -->
+        <!-- PRÓXIMAMENTE                                  -->
+        <!-- Los siguientes drivers tienen la arquitectura -->
+        <!-- lista pero la implementación está pendiente   -->
+        <!-- ============================================= -->
+        
+        <!-- PostgreSQL Driver (Próximamente) -->
+        <!--
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        -->
+        
+        <!-- MySQL Driver (Próximamente) -->
+        <!--
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        -->
+        
+        <!-- Oracle Driver (Próximamente) -->
+        <!--
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+        </dependency>
+        -->
+        
+        <!-- SQL Server Driver (Próximamente) -->
+        <!--
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+        </dependency>
+        -->
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
