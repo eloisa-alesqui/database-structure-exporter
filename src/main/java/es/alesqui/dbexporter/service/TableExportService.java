@@ -106,6 +106,7 @@ public class TableExportService {
     private TableInfo getTableInfo(String tableName) {
         return TableInfo.builder()
             .nombre(tableName)
+            .comentario(metadataExtractor.getTableComment(schema, tableName))
             .columnas(metadataExtractor.getColumns(schema, tableName))
             .primaryKeyColumns(metadataExtractor.getPrimaryKeyColumns(schema, tableName))
             .primaryKeyName(metadataExtractor.getPrimaryKeyName(schema, tableName))
@@ -127,9 +128,11 @@ public class TableExportService {
         desc.append("TABLA: ").append(tableInfo.getNombre()).append("\n");
         desc.append("==============================================\n\n");
         
-        // === DESCRIPCIÓN DE LA TABLA ===
-        desc.append("DESCRIPCIÓN DE LA TABLA:\n");
-        desc.append("Tabla que almacena [DESCRIPCIÓN PENDIENTE - Agregar manualmente basándose en el contexto]\n\n");
+        // === DESCRIPCIÓN DE LA TABLA ===        
+        if (tableInfo.getComentario() != null && !tableInfo.getComentario().trim().isEmpty()) {
+        	desc.append("DESCRIPCIÓN DE LA TABLA:\n");
+            desc.append(tableInfo.getComentario().trim()).append("\n\n");
+        } 
         
         // === COLUMNAS ===
         desc.append("COLUMNAS:\n");

@@ -3,6 +3,8 @@ package es.alesqui.dbexporter.service;
 import es.alesqui.dbexporter.model.ColumnInfo;
 import es.alesqui.dbexporter.model.ForeignKeyInfo;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +32,24 @@ public class DB2MetadataExtractor implements DatabaseMetadataExtractor {
             new Object[]{schema.toUpperCase()},
             (rs, rowNum) -> rs.getString("TABNAME").trim()
         );
+    }
+    
+    @Override
+    public String getTableComment(String schema, String tableName) {
+        String sql = "SELECT REMARKS FROM SYSCAT.TABLES " +
+            "WHERE TABSCHEMA = ? AND TABNAME = ?";
+        
+        try {
+            String comment = jdbcTemplate.queryForObject(sql, String.class, 
+                schema.toUpperCase(), tableName.toUpperCase());
+            
+            return (comment != null && !comment.trim().isEmpty()) ? comment.trim() : null;
+            
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
     }
     
     @Override

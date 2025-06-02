@@ -16,6 +16,11 @@ public interface DatabaseMetadataExtractor {
     List<String> getTables(String schema);
     
     /**
+     * Obtiene información detallada del contenido de una tabla.
+     */
+    String getTableComment(String schema, String tableName);
+    
+    /**
      * Obtiene información detallada de las columnas de una tabla.
      */
     List<ColumnInfo> getColumns(String schema, String tableName);

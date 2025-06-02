@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 public class TableInfo {
     private String nombre;
+    private String comentario;
     private String esquema;
     private List<ColumnInfo> columnas;
     private List<String> primaryKeyColumns;
