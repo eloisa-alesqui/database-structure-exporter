@@ -1,171 +1,170 @@
 # Database Structure Exporter
 
-Herramienta para exportar la estructura de tablas de bases de datos a archivos de texto optimizados para su uso con Google NotebookLM. Cada tabla se exporta en un archivo separado con información detallada sobre columnas, tipos de datos, constraints y relaciones.
+A powerful tool to export database table structures to text files optimized for Google NotebookLM. Each table is exported to a separate file with detailed information about columns, data types, constraints, and relationships.
 
-## 📋 Características
+## 📋 Features
 
-- ✅ Exporta estructura completa de tablas (columnas, tipos de datos, tamaños, nullable)
-- ✅ Incluye información detallada de foreign keys y relaciones
-- ✅ Genera un archivo separado por tabla para facilitar la carga en NotebookLM
-- ✅ Formato optimizado para comprensión por IA
-- ✅ Actualmente soporta DB2
-- 🔄 Próximamente: PostgreSQL, MySQL, Oracle, SQL Server
+- ✅ **Complete table structure export** (columns, data types, sizes, nullable)
+- ✅ **Detailed foreign key and relationship information**
+- ✅ **One file per table** for easy NotebookLM loading
+- ✅ **AI-optimized format** for better comprehension
+- ✅ **Currently supports DB2**
+- 🔄 **Coming soon**: PostgreSQL, MySQL, Oracle, SQL Server
 
-## 🛠️ Requisitos
+## 🛠️ Requirements
 
-- Java 8 o superior
-- Maven 3.x o superior
-- Acceso a una base de datos DB2
-- Driver JDBC de DB2 (se descarga automáticamente via Maven)
+- Java 8 or higher
+- Maven 3.x or higher
+- Access to a DB2 database
+- DB2 JDBC driver (automatically downloaded via Maven)
 
-## 📦 Instalación
+## 📦 Installation
 
-1. **Clona el repositorio:**
+1. **Clone the repository:**
 ```bash
-git clone https://github.com/tu-usuario/database-structure-exporter.git
+git clone https://github.com/eloisa-alesqui/database-structure-exporter.git
 cd database-structure-exporter
 ```
 
-2. **Copia el archivo de configuración de ejemplo:**
+2. **Copy the example configuration file:**
 ```bash
 cp src/main/resources/application.properties.example src/main/resources/application.properties
 ```
 
-3. **Edita `application.properties` con tus credenciales:**
+3. **Edit `application.properties` with your credentials:**
 ```properties
 # DB2 Configuration
-spring.datasource.url=jdbc:db2://tu-servidor:50000/tu-base-datos
-spring.datasource.username=tu-usuario
-spring.datasource.password=tu-password
+spring.datasource.url=jdbc:db2://your-server:50000/your-database
+spring.datasource.username=your-username
+spring.datasource.password=your-password
 
-# Esquema de base de datos a exportar
-app.schema=TU_ESQUEMA
+# Database schema to export
+app.schema=YOUR_SCHEMA
 
-# Directorio donde se guardarán los archivos exportados
+# Directory where exported files will be saved
 app.output.directory=database_structure
 ```
 
-## 🚀 Uso
+## 🚀 Usage
 
-### Ejecutar con Maven:
+### Run with Maven:
 ```bash
 mvn spring-boot:run
 ```
 
-### Generar JAR ejecutable:
+### Generate executable JAR:
 ```bash
 mvn clean package
 java -jar target/db-exporter-1.0.0.jar
 ```
 
-## 📁 Resultado
+## 📁 Output
 
-Los archivos se generarán en el directorio configurado con el siguiente formato:
+Files will be generated in the configured directory with the following format:
 
 ```
 database_structure/
-├── TABLA1.txt
-├── TABLA2.txt
-├── TABLA3.txt
+├── TABLE1.txt
+├── TABLE2.txt
+├── TABLE3.txt
 └── ...
 ```
 
-### Ejemplo de archivo generado:
+### Example of generated file:
 ```
 ==============================================
-TABLA: EMPLOYEES
+TABLE: EMPLOYEES
 ==============================================
 
-DESCRIPCIÓN DE LA TABLA:
-Tabla que almacena información de empleados
+TABLE DESCRIPTION:
+Table that stores employee information
 
-COLUMNAS:
+COLUMNS:
 ------------------
 1. EMPLOYEE_ID
-   - Tipo: DECIMAL(10)
-   - Nullable: NO
-   - Constraint: PRIMARY KEY
-   - Descripción: Código del Empleado
+ - Type: DECIMAL(10)
+ - Nullable: NO
+ - Constraint: PRIMARY KEY
+ - Description: Employee Code
 
 2. FIRST_NAME
-   - Tipo: CHARACTER(50)
-   - Nullable: NO
+ - Type: CHARACTER(50)
+ - Nullable: NO
 
 3. DEPARTMENT_ID
-   - Tipo: DECIMAL(10)
-   - Nullable: YES
-   - Foreign Key: DEPARTMENTS.DEPARTMENT_ID
+ - Type: DECIMAL(10)
+ - Nullable: YES
+ - Foreign Key: DEPARTMENTS.DEPARTMENT_ID
 
 [...]
 
 FOREIGN KEYS:
 ------------------
 1. SQL150618215635450
-   - Columnas origen: DEPARTMENT_ID
-   - Tabla destino: DEPARTMENTS
-   - Columnas destino: DEPARTMENT_ID
-   - Reglas: ON DELETE CASCADE
+ - Source columns: DEPARTMENT_ID
+ - Target table: DEPARTMENTS
+ - Target columns: DEPARTMENT_ID
+ - Rules: ON DELETE CASCADE
 
-RESUMEN:
+SUMMARY:
 ------------------
-- Total de columnas: 16
-- Tiene clave primaria: SÍ
-- Tipo de clave primaria: Simple
-- Número de foreign keys: 1
-- Columnas obligatorias (NOT NULL): 10
-- Columnas con valor por defecto: 7
-
+- Total columns: 16
+- Has primary key: YES
+- Primary key type: Simple
+- Number of foreign keys: 1
+- Required columns (NOT NULL): 10
+- Columns with default value: 7
 ```
 
-## 🔧 Configuración Avanzada
+## 🔧 Advanced Configuration
 
-### Parámetros de configuración disponibles:
+### Available configuration parameters:
 
-| Parámetro | Descripción | Valor por defecto |
-|-----------|-------------|-------------------|
-| `app.schema` | Esquema de BD a exportar | Requerido |
-| `app.output.directory` | Directorio de salida | `database_structure` |
-| `app.include.foreign.keys` | Incluir información de FKs | `true` |
-| `spring.datasource.hikari.maximum-pool-size` | Tamaño máximo del pool | `5` |
+| Parameter | Description | Default Value |
+|-----------|-------------|---------------|
+| `app.schema` | Database schema to export | Required |
+| `app.output.directory` | Output directory | `database_structure` |
+| `app.include.foreign.keys` | Include FK information | `true` |
+| `spring.datasource.hikari.maximum-pool-size` | Maximum pool size | `5` |
 
-## 🏗️ Estructura del Proyecto
+## 🏗️ Project Structure
 
 ```
 src/
 ├── main/
 │   ├── java/
 │   │   └── es/alesqui/dbexporter/
-│   │       ├── model/          # Clases de modelo (ColumnInfo, TableInfo, etc.)
-│   │       ├── service/        # Servicios de extracción y exportación
-│   │       └── runner/         # Runner principal de Spring Boot
+│   │       ├── model/          # Model classes (ColumnInfo, TableInfo, etc.)
+│   │       ├── service/        # Extraction and export services
+│   │       └── runner/         # Main Spring Boot runner
 │   └── resources/
 │       └── application.properties
 ```
 
-### 🚀 Próximas características planificadas:
-- [ ] Soporte para PostgreSQL
-- [ ] Soporte para MySQL
-- [ ] Soporte para Oracle
-- [ ] Soporte para SQL Server
-- [ ] Exportación a formato JSON/YAML
+### 🚀 Upcoming Features
+- [ ] PostgreSQL database support
+- [ ] MySQL database support
+- [ ] Oracle database support
+- [ ] SQL Server database support
+- [ ] JSON/YAML export formats
 
-### 🐛 Reportar bugs:
-Si encuentras un bug, por favor abre un issue con:
+## 🐛 Bug Reports
+If you find a bug, please open an issue with:
 
-- Descripción del problema
-- Pasos para reproducirlo
-- Versión de Java y Maven
-- Logs de error (si los hay)
+- Problem description
+- Steps to reproduce
+- Java and Maven versions
+- Error logs (if any)
 
-## 📝 Licencia
+## 📝 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## 👤 Autor
+## 👤 Author
 
 Eloísa Alés Esquivel
 - GitHub: [@eloisa-alesqui](https://github.com/eloisa-alesqui)
+- LinkedIn: [Connect with me](https://linkedin.com/in/eloisa-ales-esquivel)
 
 ---
 
-⭐️ Si este proyecto te resulta útil, considera darle una estrella en GitHub!
+⭐️ **If you find this project useful, please consider giving it a star on GitHub!**
