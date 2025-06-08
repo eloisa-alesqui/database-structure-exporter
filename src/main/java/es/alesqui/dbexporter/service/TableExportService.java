@@ -246,7 +246,7 @@ public class TableExportService {
 					.append(tableInfo.getPrimaryKeyColumns().size() > 1 ? "Composite" : "Simple").append("\n");
 		}
 
-		desc.append("- Foreign keys count: ").append(tableInfo.getForeignKeys().size()).append("\n");
+		desc.append("- Number of foreign keys: ").append(tableInfo.getForeignKeys().size()).append("\n");
 
 		// Contar columnas obligatorias
 		long requiredColumns = tableInfo.getColumnas().stream().filter(col -> !col.isNullable()).count();
